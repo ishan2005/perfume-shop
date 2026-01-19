@@ -5,6 +5,16 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
+import Product from "./models/Product.js";
+
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch products" });
+  }
+});
 
 const app = express(); // ✅ THIS WAS MISSING / MISPLACED
 
